@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Home · VASUNDHARA{% endblock %}
+{% block content %}
+<section class="grid lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-2 space-y-4">
+    <div class="bg-white rounded-2xl p-6 shadow-md transform transition hover:-translate-y-1" data-aos="fade-up">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-bold text-emerald-800">Community updates</h2>
+          <p class="text-sm text-slate-500">Latest questions, tips and farmer discussions</p>
+        </div>
+        <a href="{{ url_for('add_post') }}" class="btn">Ask / Share</a>
+      </div>
+      <div class="mt-4 grid md:grid-cols-2 gap-4">
+        {% for p in posts %}
+        <a href="{{ url_for('post_detail', post_id=p[0]) }}" class="block bg-emerald-50 hover:bg-emerald-100 rounded-xl p-4 shadow-sm transition transform hover:-translate-y-1" data-aos="zoom-in" data-aos-delay="{{ loop.index0 * 50 }}">
+          <div class="flex gap-3 items-start">
+            <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600&q=60&auto=format&fit=crop" class="w-16 h-12 rounded-lg object-cover" alt="crop">
+            <div>
+              <div class="font-semibold text-emerald-800">{{ p[1] }}</div>
+              <div class="text-xs text-slate-500">by {{ p[5] or 'Anonymous' }} • {{ p[4] }}</div>
+              <p class="mt-2 text-sm text-slate-700 line-clamp">{{ p[3][:180] }}{% if p[3]|length > 180 %}...{% endif %}</p>
+            </div>
+          </div>
+        </a>
+        {% else %}
+          <p class="text-sm text-slate-500">No posts yet — be the first to share!</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <aside class="space-y-4">
+    <div class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-left">
+      <h3 class="font-semibold text-emerald-800">Quick Search</h3>
+      <form action="{{ url_for('posts_page') }}" method="get" class="mt-3 space-y-2">
+        <input name="crop" placeholder="Crop (e.g., Wheat)" class="input"/>
+        <input name="q" placeholder="Text search" class="input"/>
+        <button class="btn w-full">Search</button>
+      </form>
+    </div>
+    <div class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-left" data-aos-delay="80">
+      <h3 class="font-semibold text-emerald-800">Smart Advice</h3>
+      <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=800&q=60&auto=format&fit=crop" class="rounded-xl mt-3 object-cover w-full h-28" alt="advice">
+      <p class="text-sm text-slate-500 mt-2">Use the Smart Advice tool for pH, temp, humidity & market tips.</p>
+      <a href="{{ url_for('advice') }}" class="mt-3 inline-block btn-outline">Get Advice</a>
+    </div>
+  </aside>
+</section>
+{% endblock %}

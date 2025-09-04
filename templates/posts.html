@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Community · VASUNDHARA{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-2xl font-bold text-emerald-800">Farmer Knowledge Sharing</h1>
+  <a href="{{ url_for('add_post') }}" class="btn">Create Post</a>
+</div>
+<div class="grid md:grid-cols-3 gap-4">
+  <div class="md:col-span-2 space-y-4">
+    {% for p in posts %}
+    <div class="bg-white rounded-2xl p-4 shadow-md transition transform hover:-translate-y-1" data-aos="fade-up">
+      <div class="flex justify-between items-start">
+        <div class="flex gap-3">
+          <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=400&q=60&auto=format&fit=crop" class="w-20 h-16 rounded-lg object-cover" alt="thumb">
+          <div>
+            <a href="{{ url_for('post_detail', post_id=p[0]) }}" class="text-lg font-semibold text-emerald-800">{{ p[1] }}</a>
+            <div class="text-xs text-slate-500">by {{ p[5] or 'Anonymous' }} • {{ p[4] }}</div>
+            <p class="mt-2 text-sm text-slate-700">{{ p[3][:220] }}{% if p[3]|length > 220 %}...{% endif %}</p>
+          </div>
+        </div>
+        <span class="badge">{{ p[2] or 'General' }}</span>
+      </div>
+    </div>
+    {% else %}
+      <p class="text-sm text-slate-500">No posts found.</p>
+    {% endfor %}
+  </div>
+  <div class="space-y-4">
+    <div class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-up" data-aos-delay="60">
+      <h3 class="font-semibold text-emerald-800">Create a Post</h3>
+      <form method="post" action="{{ url_for('add_post') }}" class="mt-3 space-y-3">
+        <input class="input" name="title" placeholder="Title" required>
+        <input class="input" name="crop" placeholder="Crop (optional)">
+        <textarea class="input h-28" name="content" placeholder="Share your tip or question…" required></textarea>
+        <button class="btn w-full">Post (+5 pts)</button>
+    </form>
+    </div>
+    <div class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-up" data-aos-delay="120">
+        <h3 class="font-semibold text-emerald-800">Filters</h3>
+        <form method="get" action="{{ url_for('posts_page') }}" class="mt-3 space-y-2">
+          <input class="input" name="crop" placeholder="Crop" value="{{ q or '' }}">
+          <input class="input" name="q" placeholder="Text" value="{{ q or '' }}">
+          <button class="btn w-full">Apply</button>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Admin · VASUNDHARA{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold text-emerald-800 mb-4">Admin Console</h1>
+<div class="grid md:grid-cols-2 gap-4">
+  <form method="post" class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-up">
+    <input type="hidden" name="type" value="weather">
+    <h3 class="font-semibold">Weather</h3>
+    <input class="input" name="location" placeholder="Location">
+    <textarea class="input h-24 mt-2" name="forecast" placeholder="Forecast / notes"></textarea>
+    <button class="btn mt-2">Save</button>
+  </form>
+  <form method="post" class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-up" data-aos-delay="60">
+    <input type="hidden" name="type" value="crop_care">
+    <h3 class="font-semibold">Crop Care</h3>
+    <input class="input" name="crop_name" placeholder="Crop">
+    <textarea class="input h-24 mt-2" name="technique" placeholder="Technique details"></textarea>
+    <button class="btn mt-2">Save</button>
+  </form>
+  <form method="post" class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-up" data-aos-delay="120">
+    <input type="hidden" name="type" value="prices">
+    <h3 class="font-semibold">Prices</h3>
+    <input class="input" name="price_crop" placeholder="Commodity">
+    <input class="input mt-2" name="price_val" placeholder="Price (₹/quintal)">
+    <button class="btn mt-2">Save</button>
+  </form>
+  <form method="post" class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-up" data-aos-delay="180">
+    <input type="hidden" name="type" value="schemes">
+    <h3 class="font-semibold">Schemes</h3>
+    <input class="input" name="scheme_name" placeholder="Scheme name">
+    <textarea class="input h-24 mt-2" name="details" placeholder="Details"></textarea>
+    <button class="btn mt-2">Save</button>
+  </form>
+</div>
+
+<div class="mt-6 grid md:grid-cols-2 gap-4">
+  <div class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-right">
+    <h4 class="font-semibold">Latest Weather</h4>
+    <ul class="mt-2 space-y-2">
+      {% for w in weather %}
+        <li class="text-sm text-slate-700">{{ w[1] }} — {{ w[2] }} ({{ w[3] }})</li>
+      {% else %}
+        <li class="text-sm text-slate-500">No data</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-left">
+    <h4 class="font-semibold">Prices & Schemes</h4>
+    <ul class="mt-2 space-y-2">
+      {% for pfx in prices %}
+        <li class="text-sm">{{ pfx[1] }} — ₹{{ pfx[2] }}</li>
+      {% else %}
+        <li class="text-sm text-slate-500">No prices</li>
+      {% endfor %}
+      {% for s in schemes %}
+        <li class="text-sm">{{ s[1] }} — {{ s[2] }}</li>
+      {% else %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

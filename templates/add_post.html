@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Add / Edit Post · VASUNDHARA{% endblock %}
+{% block content %}
+<div class="bg-white rounded-2xl p-6 shadow-md max-w-2xl mx-auto" data-aos="zoom-in">
+  <h2 class="text-xl font-bold text-emerald-800">{{ 'Edit Post' if edit else 'Create Post' }}</h2>
+  <form method="post" class="mt-4 space-y-3">
+    <input class="input" name="title" placeholder="Title" value="{{ post[2] if edit and post else '' }}" required>
+    <input class="input" name="crop" placeholder="Crop (optional)" value="{{ post[3] if edit and post else '' }}">
+    <textarea class="input h-36" name="content" placeholder="Write details..." required>{{ post[4] if edit and post else '' }}</textarea>
+    <div class="flex gap-2">
+      <button class="btn">Save</button>
+      <a href="{{ url_for('posts_page') }}" class="btn-outline">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Smart Advice · VASUNDHARA{% endblock %}
+{% block content %}
+<div class="grid md:grid-cols-2 gap-4">
+  <form method="post" class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-right">
+    <h3 class="font-semibold text-emerald-800">Get Rule-based Advice</h3>
+    <input class="input" name="crop" placeholder="Crop (optional)">
+    <div class="grid grid-cols-2 gap-2 mt-2">
+      <input class="input" name="temp" placeholder="Temperature (°C)">
+      <input class="input" name="hum" placeholder="Humidity (%)">
+      <input class="input" name="ph" placeholder="Soil pH">
+      <input class="input" name="price" placeholder="Market price (₹/quintal)">
+    </div>
+    <button class="btn mt-3">Get Advice</button>
+  </form>
+  <div class="bg-white rounded-2xl p-4 shadow-md" data-aos="fade-left">
+    <h3 class="font-semibold text-emerald-800">Result</h3>
+    <p class="text-sm text-slate-500">Fill the form to see advice here.</p>
+  </div>
+</div>
+{% endblock %}

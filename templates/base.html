@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>{% block title %}VASUNDHARA{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-gradient-to-br from-emerald-50 via-white to-emerald-100 text-gray-800">
+  <header class="bg-white/80 backdrop-blur sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
+      <a href="{{ url_for('index') }}" class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center shadow">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="w-8 h-8">
+        </div>
+        <div>
+          <div class="font-extrabold text-lg tracking-tight text-emerald-800">VASUNDHARA</div>
+          <div class="text-xs text-slate-500 -mt-0.5">Crop advice & community for small farmers</div>
+        </div>
+      </a>
+
+      <nav class="ml-auto flex items-center gap-3">
+        <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+        <a href="{{ url_for('posts_page') }}" class="nav-link">Community</a>
+        <a href="{{ url_for('advice') }}" class="nav-link">Smart Advice</a>
+        <a href="{{ url_for('my_points') }}" class="nav-link">My Points</a>
+        <a href="{{ url_for('admin_forms') }}" class="nav-link">Admin</a>
+        {% if user %}
+          <a href="#" class="btn-soft">Hi, {{ user.username }}</a>
+          <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="btn">Login</a>
+          <a href="{{ url_for('register') }}" class="btn-outline">Register</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto p-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="space-y-2 my-4">
+          {% for m in messages %}
+            <div class="rounded-xl px-4 py-3 text-sm shadow {{ 'bg-emerald-50 border-emerald-200' if m else 'bg-amber-50' }}">{{ m }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="mt-14 border-t">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="text-sm text-slate-500">© 2025 VASUNDHARA</div>
+      <div class="flex gap-3 text-sm">
+        <a href="{{ url_for('index') }}" class="link">Home</a>
+        <a href="{{ url_for('posts_page') }}" class="link">Community</a>
+        <a href="{{ url_for('advice') }}" class="link">Smart Advice</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script> AOS.init({ duration: 700, once: true }); </script>
+</body>
+</html>

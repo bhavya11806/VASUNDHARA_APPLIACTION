@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}My Points · VASUNDHARA{% endblock %}
+{% block content %}
+<div class="bg-white rounded-2xl p-6 shadow-md max-w-3xl mx-auto" data-aos="zoom-in">
+  <h2 class="text-xl font-bold text-emerald-800">My Points</h2>
+  <div class="mt-3 text-3xl font-extrabold text-emerald-700">{{ points }}</div>
+  <h3 class="mt-4 font-semibold">Transactions</h3>
+  <ul class="mt-2 space-y-2">
+    {% for t in trans %}
+      <li class="text-sm">{{ t[2] }} — {{ t[1] }} pts</li>
+    {% else %}
+      <li class="text-sm text-slate-500">No transactions</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
